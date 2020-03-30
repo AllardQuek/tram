@@ -1,0 +1,1 @@
+{"name": "Mirai", "description": "Enterprise techniques used by Mirai, ATT&CK v1.0", "domain": "mitre-enterprise", "version": "2.2", "techniques": [], "gradient": {"colors": ["#ffffff", "#66b1ff"], "minValue": 0, "maxValue": 1}, "legendItems": [{"label": "used by Mirai", "color": "#66b1ff"}]}
