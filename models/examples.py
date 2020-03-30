@@ -1,6 +1,6 @@
 import json 
 
-with open('attack_dict.json', 'r') as f:
+with open('attack_dict.json', 'r', encoding='utf-8') as f:
     attack_dict = json.load(f)    # returns dict
     # print(type(attack_dict))
 
