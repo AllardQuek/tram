@@ -9,7 +9,7 @@ from selenium import webdriver
 from time import sleep
 
 # * Connect to Chrome and local URL
-driver = webdriver.Chrome('../../chromedriver')       # Optional argument, if not specified will search path.
+driver = webdriver.Chrome('../chromedriver')       # Optional argument, if not specified will search path.
 driver.get('http://localhost:9999/')
 
 # * Input URL(s) for analysis
