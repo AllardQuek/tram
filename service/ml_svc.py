@@ -1,3 +1,5 @@
+from helpers.sql_helpers import connect_db, insert_data
+
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
@@ -6,6 +8,7 @@ import os, pickle, random
 import nltk
 import logging
 import asyncio
+import re
 
 
 class MLService:
@@ -114,6 +117,34 @@ class MLService:
             attack_technique = attack_uid[0]['uid']
             attack_technique_name = '{} (m)'.format(attack_uid[0]['name'])
             attack_tid = attack_uid[0]['tid']
+
+            # * ADDED
+            name = attack_technique_name[:-4]    # Ignore the extra '(m)' at the end
+            sentences = sentence['text']
+
+            # Preprocess sentences
+            sentences_list = re.split(' \n  \n|\n\n | \n  \n  \n  \n', sentences)
+            for s in sentences_list:
+                
+                # Replace any new lines separating parts of the sentence
+                s = s.replace('\n', ' ')
+                
+                # Replace any double spaces which might result from previous step with a single space
+                s = s.replace('  ', ' ')
+
+                # Do a length check to skip empty strings and random punctuation
+                if len(s) < 3:
+                    continue
+
+                # TODO: Now that data is all prepared, connect to database and insert data
+                # cnx = connect_db()
+                # insert_data(cnx, attack_tid, name, s)
+
+                # Write data to file
+                with open('DATA.txt', 'a') as f:
+                    text = attack_tid + '\n' + name + '\n' + s + '\n\n'
+                    f.write(text)
+
             await self.dao.insert('report_sentence_hits',
                                   dict(uid=sentence_id, attack_uid=attack_technique,
                                        attack_technique_name=attack_technique_name, report_uid=report_id, attack_tid = attack_tid))

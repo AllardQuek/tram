@@ -148,6 +148,10 @@ class WebAPI:
                     for match in matching_attacks:
                         table["body"].append([match["tid"], match["name"], sentence['text']])
 
+                        with open('PDF_data.txt', 'w') as f:
+                            text = match["tid"] + ' ' + match["name"] + ' ' + sentence['text'] + '\n'
+                            f.write(text)
+
         # Append table to the end
         dd['content'].append({"table": table})
         return web.json_response(dd)
