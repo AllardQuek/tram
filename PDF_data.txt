@@ -1,0 +1,455 @@
+T1046
+Network Service Scanning
+Much of the new mirai variant that scans port 7547 has been covered by various sources. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+The following table lists first seen time of “old” mirai and the “new” ones that hit our honeypot. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+You can see the variant on port 7547 first shown up on 2016-11-26 21:27:23, and first observed for the variant on port 5555 was one day after on 2016-11-27 17:04:02(all GMT +8). 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+The following table lists first seen time of “old” mirai and the “new” ones that hit our honeypot. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+You can see the variant on port 7547 first shown up on 2016-11-26 21:27:23, and first observed for the variant on port 5555 was one day after on 2016-11-27 17:04:02(all GMT +8). 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+[](/content/images/2016/11/03-bot-current-growth-rate-on-all-port.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+Currently, the growth rate of the bot on port 7547 has far exceeded the number of bots on port 23/2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+[](/content/images/2016/11/03-bot-current-growth-rate-on-all-port.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+Currently, the growth rate of the bot on port 7547 has far exceeded the number of bots on port 23/2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+[](/content/images/2016/11/03-bot-current-growth-rate-on-all-port.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+Currently, the growth rate of the bot on port 7547 has far exceeded the number of bots on port 23/2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+The total number of bots on current port 7547 has already exceeded 30,000. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+Bot growth rate on port 7547, per 10 minutes: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+The figure shows that, bot's growth rate quickly reached a peak, and smoothly maintained at a high level. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+On the other hand, from the perspective of the backbone network, the scan on port 7547 began to rise sharply in the evening of 2016-11-26. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+In terms of the geographical distribution of the newly infected bot, Brazil is still far ahead of the others, which is consistent with the geographical distribution of the existing mirai botnet. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+We provide various statistics and data downloads of Mirai-infected devices at http://data.netlab.360.com/mirai-scanner for researchers. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+For those who have been using API to access our bot list, please re-download the data from 2016-11-26 and later to obtain updates for port 7547 and 5555 data. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+The New Variant Shares Some of the Infrastructure of the Existing Mirai Botnet 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1048
+Exfiltration Over Alternative Protocol
+The new mirai has two C2s (securityupdates.us, timeserver.host) and two report servers (rep.securityupdates.us, ntp.timeserver.host) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+The total number of bots on current port 7547 has already exceeded 30,000. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+Bot growth rate on port 7547, per 10 minutes: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+The figure shows that, bot's growth rate quickly reached a peak, and smoothly maintained at a high level. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+On the other hand, from the perspective of the backbone network, the scan on port 7547 began to rise sharply in the evening of 2016-11-26. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+In terms of the geographical distribution of the newly infected bot, Brazil is still far ahead of the others, which is consistent with the geographical distribution of the existing mirai botnet. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+We provide various statistics and data downloads of Mirai-infected devices at http://data.netlab.360.com/mirai-scanner for researchers. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+For those who have been using API to access our bot list, please re-download the data from 2016-11-26 and later to obtain updates for port 7547 and 5555 data. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+The New Variant Shares Some of the Infrastructure of the Existing Mirai Botnet 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+The new mirai has two C2s (securityupdates.us, timeserver.host) and two report servers (rep.securityupdates.us, ntp.timeserver.host) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+The total number of bots on current port 7547 has already exceeded 30,000. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+Bot growth rate on port 7547, per 10 minutes: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+The figure shows that, bot's growth rate quickly reached a peak, and smoothly maintained at a high level. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+On the other hand, from the perspective of the backbone network, the scan on port 7547 began to rise sharply in the evening of 2016-11-26. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+In terms of the geographical distribution of the newly infected bot, Brazil is still far ahead of the others, which is consistent with the geographical distribution of the existing mirai botnet. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+We provide various statistics and data downloads of Mirai-infected devices at http://data.netlab.360.com/mirai-scanner for researchers. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+For those who have been using API to access our bot list, please re-download the data from 2016-11-26 and later to obtain updates for port 7547 and 5555 data. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+The New Variant Shares Some of the Infrastructure of the Existing Mirai Botnet 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+The new mirai has two C2s (securityupdates.us, timeserver.host) and two report servers (rep.securityupdates.us, ntp.timeserver.host) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+The total number of bots on current port 7547 has already exceeded 30,000. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+Bot growth rate on port 7547, per 10 minutes: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+The figure shows that, bot's growth rate quickly reached a peak, and smoothly maintained at a high level. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+On the other hand, from the perspective of the backbone network, the scan on port 7547 began to rise sharply in the evening of 2016-11-26. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+In terms of the geographical distribution of the newly infected bot, Brazil is still far ahead of the others, which is consistent with the geographical distribution of the existing mirai botnet. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+We provide various statistics and data downloads of Mirai-infected devices at http://data.netlab.360.com/mirai-scanner for researchers. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+For those who have been using API to access our bot list, please re-download the data from 2016-11-26 and later to obtain updates for port 7547 and 5555 data. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+The New Variant Shares Some of the Infrastructure of the Existing Mirai Botnet 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+The new mirai has two C2s (securityupdates.us, timeserver.host) and two report servers (rep.securityupdates.us, ntp.timeserver.host) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+The total number of bots on current port 7547 has already exceeded 30,000. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+Bot growth rate on port 7547, per 10 minutes: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+The figure shows that, bot's growth rate quickly reached a peak, and smoothly maintained at a high level. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+On the other hand, from the perspective of the backbone network, the scan on port 7547 began to rise sharply in the evening of 2016-11-26. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+In terms of the geographical distribution of the newly infected bot, Brazil is still far ahead of the others, which is consistent with the geographical distribution of the existing mirai botnet. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+We provide various statistics and data downloads of Mirai-infected devices at http://data.netlab.360.com/mirai-scanner for researchers. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+For those who have been using API to access our bot list, please re-download the data from 2016-11-26 and later to obtain updates for port 7547 and 5555 data. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+The New Variant Shares Some of the Infrastructure of the Existing Mirai Botnet 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+The new mirai has two C2s (securityupdates.us, timeserver.host) and two report servers (rep.securityupdates.us, ntp.timeserver.host) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+[](/content/images/2016/11/07-two-c2-server-and-two-report-server-in-one- marai-sample---the-port-7547-varaint.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+It is noteworthy the exact combination, both C2s and report servers had previously been embedded in the “old” mirai sample that we saw a while ago on 2016-11-09. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+Detail of the sample of 2016-11-09 variant: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+CRC32: 2BD6603A MD5: EF713BDD7B06097447A25F4B35C738F6 SHA-1: 44D9C6A682E48DFA86BACDBD68F11A1F3CB78D07 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+[](/content/images/2016/11/07-two-c2-server-and-two-report-server-in-one- marai-sample.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+Bot Overlap 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+In other words, the operator of new variant on port 7547 and the previous mirai operator are very likely the same group of people. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+The following diagram shows the overlap of all the bots we captured in our honeypot that have scanned port 23/2323/5555/7547. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+We can see that: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+96.4% of the Mirai Bots scan port 23 or port 2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+[](/content/images/2016/11/07-two-c2-server-and-two-report-server-in-one- marai-sample.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+Bot Overlap 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+In other words, the operator of new variant on port 7547 and the previous mirai operator are very likely the same group of people. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+The following diagram shows the overlap of all the bots we captured in our honeypot that have scanned port 23/2323/5555/7547. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+We can see that: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+96.4% of the Mirai Bots scan port 23 or port 2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+[](/content/images/2016/11/07-two-c2-server-and-two-report-server-in-one- marai-sample.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+Bot Overlap 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+In other words, the operator of new variant on port 7547 and the previous mirai operator are very likely the same group of people. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+The following diagram shows the overlap of all the bots we captured in our honeypot that have scanned port 23/2323/5555/7547. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+We can see that: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1008
+Fallback Channels
+96.4% of the Mirai Bots scan port 23 or port 2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+[](/content/images/2016/11/07-two-c2-server-and-two-report-server-in-one- marai-sample.jpg) 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+Bot Overlap 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+In other words, the operator of new variant on port 7547 and the previous mirai operator are very likely the same group of people. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+The following diagram shows the overlap of all the bots we captured in our honeypot that have scanned port 23/2323/5555/7547. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+We can see that: 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+96.4% of the Mirai Bots scan port 23 or port 2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1065
+Uncommonly Used Port
+Among them, 79% only scan port 23 and 6.4% only scan 2323, 11% scan both port 23 and 2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+Among them, 79% only scan port 23 and 6.4% only scan 2323, 11% scan both port 23 and 2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1043
+Commonly Used Port
+Among them, 79% only scan port 23 and 6.4% only scan 2323, 11% scan both port 23 and 2323. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+About 3.1% of the Mirai bots only scan port 7547. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+No more than 0.1% of the bots show other cross-scanning behaviors among the four-ports, which is still quite rare. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+Infected Device Breakdown 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+
+T1046
+Network Service Scanning
+All together we have logged 46,653 IPs that were infected with this new 7547 variants, and we tried to ID these known infected IPs by sending out requests that emulate tr064|tr069 protocol so we would be able to get accurate device info. 
+https://blog.netlab.360.com/a-few-observations-of-the-new-mirai-variant-on-port-7547/
+

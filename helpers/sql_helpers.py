@@ -1,4 +1,5 @@
 import sys
+from datetime import datetime
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -25,8 +26,26 @@ def connect_db():
     return cnx
 
 def insert_data(cnx, attack_tid, name, sentence):
-    pass
+    cursor = cnx.cursor()
+    date_crawled = datetime.today().strftime('%Y-%m-%d')
 
+    # * Try inserting data
+    try:
+        print("INSERTING INTO DATABASE")
+        cursor.execute(f"INSERT INTO tram (attack_tid, t_name, date_crawled) VALUES ('{attack_tid}', '{name}', '{date_crawled}';")
+        print("INSERT SUCCESS")
+    except Exception as e:
+        print('FAILED TO INSERT WITH NULL DATE:', e)
+
+    # * Try committing changes to the database
+    try:    
+        cnx.commit()          
+        print('COMMITTED')
+    except Exception as e:
+        print("COULD NOT COMMIT DATA:", e)
+
+    cursor.close()
+    cnx.close()
 
 def insert_signature(ioc_type, value, malware_id, cnx):
     cursor = cnx.cursor()  
@@ -50,57 +69,5 @@ def insert_signature(ioc_type, value, malware_id, cnx):
     else:
         print("ALREADY EXISTS")
 
-    cursor.close()
-    cnx.close()
-
-def insert_d(s, source, date_crawled, date_created, malware_id, cnx, ioc_type, value):
-    cursor = cnx.cursor()
-
-    # Replace unwanted/error-inducing characters
-    s = s.replace('\n', ' ')
-    s = s.replace('\'', '')
-    s = s.replace('\"', '')
-    # s = s.replace('\'', '\'\'')
-    print("NOW INSERTING DATA...")
-
-    # * SELECT signature id
-    cursor.execute(f"SELECT s_id from signatures WHERE ioc_type='{ioc_type}' AND value='{value}' AND malwares_m_id='{malware_id}';")
-    result = cursor.fetchall()
-    s_id = result[0][0]
-    print("TYPE:", ioc_type, "VALUE:", value, "ID:", malware_id, "SIGNATURE ID:", s_id)
-    print("PARA:", s, "M ID:", malware_id, "S ID:", s_id)
-
-    # * Check if data already exists
-    # Using EXISTS Condition is very inefficient as the sub-query is RE-RUN for EVERY row in the outer query's table. There are more efficient ways to write most queries
-    cursor.execute(f"SELECT COUNT(*) FROM data WHERE text='{s}' AND malwares_m_id='{malware_id}' AND signatures_s_id='{s_id}';")
-    result = cursor.fetchall()
-    count = result[0][0]
-
-    if count == 0:
-        # if math.isnan(date_created)                 
-        if not date_created:
-            try:
-                print("INSERTING NULL DATE")
-                cursor.execute(f"INSERT INTO data (text, source, date_crawled, date_created, malwares_m_id, signatures_s_id) VALUES ('{s}', '{source}', '{date_crawled}', NULL, '{malware_id}', '{s_id}');")
-                print("NULL SUCCESS")
-            except Exception as e:
-                print('FAILED TO INSERT WITH NULL DATE:', e)
-        else:
-            try:
-                print("INSERTING DATA WITH DATE_CREATED", date_created)
-                cursor.execute(f"INSERT INTO data (text, source, date_crawled, date_created, malwares_m_id, signatures_s_id) VALUES ('{s}', '{source}', '{date_crawled}', '{date_created}', '{malware_id}', '{s_id}');")
-                print("SUCCESS")
-            except Exception as e:
-                print("FAILED TO INSERT WITH DATE CREATED:", e)
-    else:
-        print("THIS DATA ALREADY EXISTS, CARRY ON")
-        
-    # * Try committing changes to the database
-    try:    
-        cnx.commit()          
-        print('COMMITTED')
-    except Exception as e:
-        print("COULD NOT COMMIT DATA:", e)
-  
     cursor.close()
     cnx.close()

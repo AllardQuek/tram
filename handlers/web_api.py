@@ -1,6 +1,9 @@
+from helpers.sql_helpers import connect_db, insert_data
+
 from aiohttp_jinja2 import template, web
 import nltk
 import json
+import re
 
 
 class WebAPI:
@@ -148,8 +151,31 @@ class WebAPI:
                     for match in matching_attacks:
                         table["body"].append([match["tid"], match["name"], sentence['text']])
 
-                        with open('PDF_data.txt', 'w') as f:
-                            text = match["tid"] + ' ' + match["name"] + ' ' + sentence['text'] + '\n'
+                    # * ADDED
+                    source = report[0]['url']
+                    sentences = sentence['text']
+
+                    # Preprocess sentences
+                    sentences_list = re.split(' \n  \n|\n\n | \n  \n  \n  \n', sentences)
+                    for s in sentences_list:
+                        
+                        # Replace any new lines separating parts of the sentence
+                        s = s.replace('\n', ' ')
+                        
+                        # Replace any double spaces which might result from previous step with a single space
+                        s = s.replace('  ', ' ')
+
+                        # Do a length check to skip empty strings and random punctuation
+                        if len(s) < 3:
+                            continue
+
+                        # TODO: Now that data is all prepared, connect to database and insert data
+                        # cnx = connect_db()
+                        # insert_data(cnx, attack_tid, name, s)
+
+                        # Write data to file
+                        with open('PDF_data.txt', 'a') as f:
+                            text = match["tid"] + '\n' + match["name"] + '\n' + s + '\n' + source + '\n\n'
                             f.write(text)
 
         # Append table to the end
