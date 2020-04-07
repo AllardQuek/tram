@@ -130,6 +130,7 @@ class RestService:
                 self.resources.append(task)
 
     async def start_analysis(self, criteria=None):
+        # print("ANALYSIS STARTED LOOK HERE")
         tech_data = await self.dao.get('attack_uids')
         json_tech = json.load(open("models/attack_dict.json", "r", encoding="utf_8"))
         techniques = {}

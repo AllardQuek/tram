@@ -68,12 +68,14 @@ class MLService:
 
     async def analyze_document(self, cv, logreg, sentences):
         cleaned_sentences = [await self.web_svc.tokenize(i['text']) for i in sentences]
-
         df2 = pd.DataFrame({'text': cleaned_sentences})
         Xnew = cv.transform(df2['text']).toarray()
+        # print("X NEW:", Xnew)
         await asyncio.sleep(0.01)
         y_pred = logreg.predict(Xnew)
+        # print("Y PRED:", y_pred)
         df2['category'] = y_pred.tolist()
+        print("NOW DF2:", df2)
         return df2
 
     async def build_pickle_file(self, list_of_techs, techniques, force=False):
