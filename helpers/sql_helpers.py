@@ -1,16 +1,15 @@
 import sys
-from datetime import datetime
 import mysql.connector
 from mysql.connector import errorcode
 
             
 def connect_db():
-    # Attempt to connect to db
-    try:
-        cnx = mysql.connector.connect(user='malware', password='malware',
-                                    host='10.255.252.177',
-                                    database='malwareanalysis')
-        print("CONNECTION SUCCESS", cnx)
+    """Attempt to connect to GCP MySQL database and return connectin"""   
+    try:                                                                    # To connect to database in Ubuntu VM:
+        cnx = mysql.connector.connect(user='root', password='malware',      # user=malware
+                                    host='34.87.119.210',                   # 10.255.252.177 
+                                    database='malware-analysis')            # malwareanalysis
+        print("CONNECTION SUCCESS")
 
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -25,49 +24,45 @@ def connect_db():
 
     return cnx
 
-def insert_data(cnx, attack_tid, name, sentence):
-    cursor = cnx.cursor()
-    date_crawled = datetime.today().strftime('%Y-%m-%d')
 
-    # * Try inserting data
+def insert_technique(tech_id, t_name, text, source, date_crawled, m_id):
+    """
+    Insert ATT&CK technique into database
+
+    Parameters:
+        tech_id -- Technique ID (e.g. T1034)
+        t_name -- Technique name
+        text -- Sentence technique was found in
+        source -- URL of text's source
+        date_crawled -- Current date
+        m_id -- malware's id 
+        
+    """
+    # We will open and close cnx and close for each insert
+    cnx = connect_db()
+    cursor = cnx.cursor()
+
+    # Replace unwanted/error-inducing characters
+    text = text.replace('\n', ' ')
+    text = text.replace('\'', '')
+    text = text.replace('\"', '')
+
+    # Try inserting data
     try:
         print("INSERTING INTO DATABASE")
-        cursor.execute(f"INSERT INTO tram (attack_tid, t_name, date_crawled) VALUES ('{attack_tid}', '{name}', '{date_crawled}';")
+        command = f"INSERT INTO techniques (tech_id, technique, text, source, date_crawled, malwares_m_id) \
+                    VALUES ('{tech_id}', '{t_name}', '{text}', '{source}', '{date_crawled}', {m_id});"
+        cursor.execute(command)
         print("INSERT SUCCESS")
     except Exception as e:
-        print('FAILED TO INSERT WITH NULL DATE:', e)
+        print('INSERT FAILED:', e)
 
-    # * Try committing changes to the database
+    # Try committing changes to the database
     try:    
         cnx.commit()          
         print('COMMITTED')
     except Exception as e:
         print("COULD NOT COMMIT DATA:", e)
-
-    cursor.close()
-    cnx.close()
-
-def insert_signature(ioc_type, value, malware_id, cnx):
-    cursor = cnx.cursor()  
-
-    # Note: Try catch does not work as cursor just returns a None object and no error is returned
-    cursor.execute(f"SELECT COUNT(*) from signatures WHERE ioc_type='{ioc_type}' AND value='{value}' AND malwares_m_id='{malware_id}';")
-    result = cursor.fetchall()
-    counts = result[0][0]
-
-    # * If the signature does not already exist, insert into db
-    if counts == 0:
-        cursor.execute(f"INSERT INTO signatures (ioc_type, value, malwares_m_id) VALUES ('{ioc_type}', '{value}', '{malware_id}');")   
-        print("INSERTING")
-
-        # * Try committing changes to the database
-        try:    
-            cnx.commit()          
-            print('COMMITTED')
-        except Exception as e:
-            print("COULD NOT INSERT DATA:", e) 
-    else:
-        print("ALREADY EXISTS")
 
     cursor.close()
     cnx.close()

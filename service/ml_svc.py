@@ -1,5 +1,3 @@
-from helpers.sql_helpers import connect_db, insert_data
-
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split

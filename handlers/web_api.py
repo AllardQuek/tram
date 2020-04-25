@@ -1,5 +1,3 @@
-from helpers.sql_helpers import connect_db, insert_data
-
 from aiohttp_jinja2 import template, web
 import nltk
 import json
@@ -120,6 +118,10 @@ class WebAPI:
         :param request: The title of the report information
         :return: response status of function
         """
+        from helpers.bert_helpers import load_bert, make_predictions, pred_names
+        from helpers.sql_helpers import insert_technique
+        from datetime import datetime
+
         # Get the report
         report = await self.dao.get('reports', dict(title=request.match_info.get('file')))
         sentences = await self.data_svc.build_sentences(report[0]['uid'])
@@ -138,6 +140,9 @@ class WebAPI:
         table = {"body": []}
         table["body"].append(["ID", "Name", "Identified Sentence"])
 
+        # Load model once here
+        model, tokenizer = load_bert('torchBERT_allioc_model/')
+
         # Add the text to the document
         for sentence in sentences:
             dd['content'].append(sentence['text'])
@@ -152,13 +157,18 @@ class WebAPI:
                         table["body"].append([match["tid"], match["name"], sentence['text']])
 
                     # * ADDED
+                    tech_id = match["tid"]
+                    t_name = match["name"]
                     source = report[0]['url']
                     sentences = sentence['text']
+                    date_crawled = datetime.today().strftime('%Y-%m-%d')
+                    
 
                     # Preprocess sentences
                     sentences_list = re.split(' \n  \n|\n\n | \n  \n  \n  \n', sentences)
+                    prep_sents = []
+
                     for s in sentences_list:
-                        
                         # Replace any new lines separating parts of the sentence
                         s = s.replace('\n', ' ')
                         
@@ -169,14 +179,26 @@ class WebAPI:
                         if len(s) < 3:
                             continue
 
-                        # TODO: Now that data is all prepared, connect to database and insert data
-                        # cnx = connect_db()
-                        # insert_data(cnx, attack_tid, name, s)
+                        prep_sents.append(s)
+                    
+                    # * MODEL 2: Predict malware name in sentences
+                    predictions = make_predictions(model, tokenizer, prep_sents)
+                    predicted_names = pred_names(predictions)
+                    malwares_dict = {'Emotet': 1, 'Mirai': 2, 'Zeus': 3}
+                    malware_ids = [malwares_dict[name] for name in predicted_names]        # ! MALWARE ID
+                    
+                    for i in range(len(prep_sents)):
+                        sent = prep_sents[i]
+                        m_id = malware_ids[i]
+
+                        # * Connect to database and insert data
+                        insert_technique(tech_id, t_name, sent, source, date_crawled, m_id)
 
                         # Write data to file
-                        with open('PDF_data.txt', 'a') as f:
-                            text = match["tid"] + '\n' + match["name"] + '\n' + s + '\n' + source + '\n\n'
-                            f.write(text)
+                        # with open('PDF_data.txt', 'a') as f:
+                            # text = tech_id + '\n' + t_name + '\n' + s + '\n' + source + '\n' + date_crawled + '\n\n'
+                            # text = match["tid"] + '\n' + match["name"] + '\n' + s + '\n' + source + '\n' + date_crawled + '\n\n'
+                            # f.write(text)
 
         # Append table to the end
         dd['content'].append({"table": table})
