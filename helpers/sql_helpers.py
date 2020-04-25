@@ -30,12 +30,12 @@ def insert_technique(tech_id, t_name, text, source, date_crawled, m_id):
     Insert ATT&CK technique into database
 
     Parameters:
-        tech_id -- Technique ID (e.g. T1034)
-        t_name -- Technique name
-        text -- Sentence technique was found in
-        source -- URL of text's source
-        date_crawled -- Current date
-        m_id -- malware's id 
+        tech_id (str) -- Technique ID (e.g. T1034)
+        t_name (str) -- Technique name
+        text (str) -- Sentence technique was found in
+        source (str) -- URL of text's source
+        date_crawled (str) -- Current date
+        m_id (int) -- malware's id as defined in malwares table
         
     """
     # We will open and close cnx and close for each insert

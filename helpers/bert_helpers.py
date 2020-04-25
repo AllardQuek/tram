@@ -17,6 +17,24 @@ def load_bert(filepath):
 
     return model, tokenizer
 
+
+def preprocess_sents(sentences_list):
+    """Clean up sentences predicted by TRAM"""
+    prepocessed_sents = []
+    for s in sentences_list:
+        # Replace any new lines separating parts of the sentence
+        s = s.replace('\n', ' ')
+
+        # Replace any double spaces which might result from previous step with a single space
+        s = s.replace('  ', ' ')
+
+        # Do a length check to skip empty strings and random punctuation
+        if len(s) < 3:
+            continue
+        prepocessed_sents.append(s)
+    return prepocessed_sents
+
+
 def bert_preprocess(paragraphs, tokenizer):
     """Conduct preprocessing requried for BERT and return the dataloader."""
     MAX_LEN = 256
@@ -88,28 +106,39 @@ def eval_cpu(prediction_dataloader, model):
     return logits
 
 
+def get_pred_ids(predictions):
+    """Return a list of predicted malware ids from prediction values."""
+    le_classes = ['Emotet', 'Mirai', 'Zeus']    
+    malwares_dict = {'Emotet': 1, 'Mirai': 2, 'Zeus': 3}
+    predicted_ids = []
+    
+    for i in predictions:
+        pred_name = le_classes[np.argmax(i)]
+        pred_id = malwares_dict[pred_name]
+        predicted_ids.append(pred_id)
+        
+    return predicted_ids
+
+
 def make_predictions(model, tokenizer, paragraphs):
     """
-    Return prediction values (using functions defined earlier)
+    Return predicted malware ids (using functions defined earlier)
     
     1) Preprocess paragraphs using tokenizer
     2) Predict on dataloader and return prediction values
+    3) Derive malware ids from predicted values
     
     """
     
-    prediction_dataloader = bert_preprocess(paragraphs, tokenizer)        # BERT preprocess
-    predictions = eval_cpu(prediction_dataloader, model)                  # Get prediction probabilities
-    return predictions
-     
-
-def pred_names(predictions):
-    """Return a list of predicted names from prediction values."""
-    le_classes = ['Emotet', 'Mirai', 'Zeus']    
-    predicted_names = []
+    prediction_dataloader = bert_preprocess(paragraphs, tokenizer)        
+    predictions = eval_cpu(prediction_dataloader, model)                  
+    malware_ids = get_pred_ids(predictions)                              
+    return malware_ids
     
-    for i in predictions:
-        prediction = le_classes[np.argmax(i)]
-        predicted_names.append(prediction)
-        
-    return predicted_names
 
+def write_data(tech_id, tech_name, sentence, source, date_crawled):
+    """Write output to file (alternative to inserting to database)"""
+    with open('PDF_data.txt', 'a') as f:
+        # text = match["tid"] + '\n' + match["name"] + '\n' + sent + '\n' + source + '\n' + date_crawled + '\n\n'
+        text = tech_id + '\n' + tech_name + '\n' + sentence + '\n' + source + '\n' + date_crawled + '\n\n'
+        f.write(text)

@@ -118,7 +118,7 @@ class WebAPI:
         :param request: The title of the report information
         :return: response status of function
         """
-        from helpers.bert_helpers import load_bert, make_predictions, pred_names
+        from helpers.bert_helpers import load_bert, preprocess_sents, make_predictions
         from helpers.sql_helpers import insert_technique
         from datetime import datetime
 
@@ -157,48 +157,25 @@ class WebAPI:
                         table["body"].append([match["tid"], match["name"], sentence['text']])
 
                     # * ADDED
-                    tech_id = match["tid"]
-                    t_name = match["name"]
+                    tech_id, t_name = match["tid"], match["name"]
                     source = report[0]['url']
                     sentences = sentence['text']
                     date_crawled = datetime.today().strftime('%Y-%m-%d')
-                    
 
                     # Preprocess sentences
                     sentences_list = re.split(' \n  \n|\n\n | \n  \n  \n  \n', sentences)
-                    prep_sents = []
+                    prep_sents = preprocess_sents(sentences_list)
 
-                    for s in sentences_list:
-                        # Replace any new lines separating parts of the sentence
-                        s = s.replace('\n', ' ')
-                        
-                        # Replace any double spaces which might result from previous step with a single space
-                        s = s.replace('  ', ' ')
-
-                        # Do a length check to skip empty strings and random punctuation
-                        if len(s) < 3:
-                            continue
-
-                        prep_sents.append(s)
-                    
-                    # * MODEL 2: Predict malware name in sentences
-                    predictions = make_predictions(model, tokenizer, prep_sents)
-                    predicted_names = pred_names(predictions)
-                    malwares_dict = {'Emotet': 1, 'Mirai': 2, 'Zeus': 3}
-                    malware_ids = [malwares_dict[name] for name in predicted_names]        # ! MALWARE ID
-                    
+                    # Predict malware name in sentences
+                    malware_ids = make_predictions(model, tokenizer, prep_sents)
+                            
                     for i in range(len(prep_sents)):
                         sent = prep_sents[i]
                         m_id = malware_ids[i]
 
-                        # * Connect to database and insert data
+                        # Connect to database and insert data
                         insert_technique(tech_id, t_name, sent, source, date_crawled, m_id)
-
-                        # Write data to file
-                        # with open('PDF_data.txt', 'a') as f:
-                            # text = tech_id + '\n' + t_name + '\n' + s + '\n' + source + '\n' + date_crawled + '\n\n'
-                            # text = match["tid"] + '\n' + match["name"] + '\n' + s + '\n' + source + '\n' + date_crawled + '\n\n'
-                            # f.write(text)
+                        
 
         # Append table to the end
         dd['content'].append({"table": table})
