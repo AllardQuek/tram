@@ -1,5 +1,5 @@
 '''
-Automatically submit URLS and Titles for analysis. 
+Automatically submit URLS and Titles for analysis. Note values here are hard-coded.
 Might need to wait several minutes for analysis to be completed (card will appear under 'Needs Review' section)
 
 '''

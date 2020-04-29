@@ -4,7 +4,6 @@ Might need to wait several minutes for analysis to be completed (card will appea
 
 '''
 
-import time
 import argparse
 from selenium import webdriver
 from time import sleep
@@ -25,10 +24,12 @@ titlefile = args.titlefile
 
 with open(urlfile, 'r') as uf:
     URLS = uf.read()
+URLS = URLS[:-1]
 print(URLS, type(URLS))
 
 with open(titlefile, 'r') as tf:
     TITLES = tf.read()
+TITLES = TITLES[:-1]
 print(TITLES, type(TITLES))
 
 
@@ -37,17 +38,24 @@ driver = webdriver.Chrome('../chromedriver')       # Optional argument, if not s
 driver.get('http://localhost:9999/')
 
 # * Input URL(s) for analysis
+# https://stackoverflow.com/questions/39542586/selenium-auto-submits-form-with-send-keys
 url_input = driver.find_element_by_id('url')          # print(elem), elem.click()
-url_input.send_keys(URLS)
+driver.execute_script("arguments[0].value = arguments[1]", url_input, URLS)
+# url_input.send_keys(URLS)
 
 # * Input URLs' corresponding titles to keep track more easily
 title_input = driver.find_element_by_id('title')
-title_input.send_keys(TITLES)
+driver.execute_script("arguments[0].value = arguments[1]", title_input, TITLES)
+# title_input.send_keys(TITLES)
 
 # * Once both inputs filled, submit form and await results
-submit_btn = driver.find_element_by_css_selector("button[onclick='submit_report()']")
-submit_btn.click()
-print('SUBMITTED')
+try:
+    submit_btn = driver.find_element_by_css_selector("button[onclick='submit_report()']")
+    submit_btn.click()
+except Exception as e:
+    print(f'SUBMIT ERROR: {e}')
+else:
+    print('SUBMITTED')
 
 # * Buffer time to allow sufficient time for submission before quitting
 # sleep(5)

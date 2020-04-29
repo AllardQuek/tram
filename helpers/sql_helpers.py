@@ -19,7 +19,6 @@ def connect_db():
             print(sys.stderr, "does not exist")
         else:
             print(err)
-            print(sys.stderr, "does not exist")
         sys.exit(1)
 
     return cnx
@@ -47,15 +46,23 @@ def insert_technique(tech_id, t_name, text, source, date_crawled, m_id):
     text = text.replace('\'', '')
     text = text.replace('\"', '')
 
-    # Try inserting data
-    try:
-        print("INSERTING INTO DATABASE")
-        command = f"INSERT INTO techniques (tech_id, technique, text, source, date_crawled, malwares_m_id) \
-                    VALUES ('{tech_id}', '{t_name}', '{text}', '{source}', '{date_crawled}', {m_id});"
-        cursor.execute(command)
-        print("INSERT SUCCESS")
-    except Exception as e:
-        print('INSERT FAILED:', e)
+    # * Check if data already exists
+    # EXISTS condition is very inefficient as sub-query is RE-RUN for EVERY row in outer query's table 
+    # There are more efficient ways to write most queries
+    cursor.execute(f"SELECT COUNT(*) FROM techniques WHERE tech_id='{tech_id}' AND text='{text}' AND malwares_m_id={m_id};")
+    result = cursor.fetchall()
+    count = result[0][0]
+
+    if count == 0:
+        # Try inserting data
+        try:
+            print("INSERTING INTO DATABASE")
+            command = f"INSERT INTO techniques (tech_id, technique, text, source, date_crawled, malwares_m_id) \
+                        VALUES ('{tech_id}', '{t_name}', '{text}', '{source}', '{date_crawled}', {m_id});"
+            cursor.execute(command)
+            print("INSERT SUCCESS")
+        except Exception as e:
+            print('INSERT FAILED:', e)
 
     # Try committing changes to the database
     try:    

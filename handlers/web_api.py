@@ -140,7 +140,7 @@ class WebAPI:
         table = {"body": []}
         table["body"].append(["ID", "Name", "Identified Sentence"])
 
-        # Load model once here
+        # * Load model once here
         model, tokenizer = load_bert('torchBERT_allioc_model/')
 
         # Add the text to the document
@@ -174,7 +174,10 @@ class WebAPI:
                         m_id = malware_ids[i]
 
                         # Connect to database and insert data
-                        insert_technique(tech_id, t_name, sent, source, date_crawled, m_id)
+                        try:
+                            insert_technique(tech_id, t_name, sent, source, date_crawled, m_id)
+                        except Exception as e:
+                            print(f'FAILED INSERT with error {e}')
                         
 
         # Append table to the end

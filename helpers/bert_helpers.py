@@ -1,7 +1,6 @@
 import torch
 import pandas as pd
 import numpy as np
-from keras.preprocessing.sequence import pad_sequences
 from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
 from transformers import BertForSequenceClassification
 from transformers import BertTokenizer
@@ -36,52 +35,76 @@ def preprocess_sents(sentences_list):
 
 
 def bert_preprocess(paragraphs, tokenizer):
-    """Conduct preprocessing requried for BERT and return the dataloader."""
+    """Conduct preprocessing requried for BERT and return the dataloader (MAX_LEN = 256).
+    
+    Parameters --
+        :paragraphs: array of praragraphs (or sentences)
+        :tokenizer: loaded BERT tokenizer
+
+    Returns --
+        :prediction_dataloader: Pytorch dataloader to store prediction data
+    """
     MAX_LEN = 256
 
     # Tokenize all of the sentences and map the tokens to thier word IDs.
-    input_ids = []
+    input_ids, attention_masks = [], []
 
     for para in paragraphs:
-        encoded_para = tokenizer.encode(
+        # `encode_plus` will:
+        #   (1) Tokenize the sentence.
+        #   (2) Prepend the `[CLS]` token to the start.
+        #   (3) Append the `[SEP]` token to the end.
+        #   (4) Map tokens to their IDs.
+        #   (5) Pad or truncate the sentence to `max_length`
+        #   (6) Create attention masks for [PAD] tokens.
+        encoded_dict = tokenizer.encode_plus(
                             para,                      # Sentence to encode.
                             add_special_tokens = True, # Add '[CLS]' and '[SEP]'
+                            max_length = 256,           # Pad & truncate all sentences.
+                            pad_to_max_length = True,
+                            return_attention_mask = True,   # Construct attn. masks.
+                            return_tensors = 'pt',     # Return pytorch tensors.
                     )
         
-        input_ids.append(encoded_para)
+        # Add the encoded sentence to the list.    
+        input_ids.append(encoded_dict['input_ids'])
+        
+        # And its attention mask (simply differentiates padding from non-padding).
+        attention_masks.append(encoded_dict['attention_mask'])
 
-    # Pad our input tokens
-    input_ids = pad_sequences(input_ids, maxlen=MAX_LEN, 
-                            dtype="long", truncating="post", padding="post")
+    # Convert the lists into tensors.
+    input_ids = torch.cat(input_ids, dim=0)
+    attention_masks = torch.cat(attention_masks, dim=0)
 
-    # Create attention masks
-    attention_masks = []
-
-    # Create a mask of 1s for each token followed by 0s for padding
-    for seq in input_ids:
-        seq_mask = [float(i>0) for i in seq]
-        attention_masks.append(seq_mask) 
-
-    # Convert to tensors.
-    prediction_inputs = torch.tensor(input_ids)
-    prediction_masks = torch.tensor(attention_masks)
-
-    # Set the batch size. Here we set it equal to number of samples so we have only 1 batch of predictions
-    batch_size = len(paragraphs) 
+    # Set the batch size, same as that used during training
+    batch_size = 5
 
     # Create the DataLoader.
-    prediction_data = TensorDataset(prediction_inputs, prediction_masks)    # , prediction_labels
-    prediction_sampler = SequentialSampler(prediction_data)
-    prediction_dataloader = DataLoader(prediction_data, sampler=prediction_sampler, batch_size=batch_size)
-    print('Continue predicting labels for {:,} prediction sentences...'.format(len(prediction_inputs)))
+    prediction_data = TensorDataset(input_ids, attention_masks)    
+    prediction_dataloader = DataLoader(
+        prediction_data,
+        sampler = SequentialSampler(prediction_data),
+        batch_size = batch_size
+    )
 
     return prediction_dataloader
 
 
 def eval_cpu(prediction_dataloader, model):
-    """Unload the dataloader, predict, then return logits which is an array of predictions."""
+    """
+    Predict using CPU and return an array of prediction indexes.
+
+    Parameters --
+        :prediction_dataloader: dataloader to be unloaded, from pre-processing step
+        :model: loaded BERT model
+    
+    Returns -- 
+        :flat_predictions: array of prediction indexes (obtained from argmax of prediction values)
+    """
     # Put model in evaluation mode
     model.eval()       
+
+    predictions = []
 
     # Predict 
     for batch in prediction_dataloader:
@@ -102,8 +125,15 @@ def eval_cpu(prediction_dataloader, model):
 
         # Move logits and labels to CPU
         logits = logits.detach().cpu().numpy()
-            
-    return logits
+        predictions.append(logits)
+
+    # Combine the results across all batches (stack batches one on top of another)
+    flat_predictions = np.concatenate(predictions, axis=0)
+
+    # For each sample, pick the label (0 or 1) with the higher score
+    flat_predictions = np.argmax(flat_predictions, axis=1).flatten()
+
+    return flat_predictions
 
 
 def get_pred_ids(predictions):
@@ -112,8 +142,8 @@ def get_pred_ids(predictions):
     malwares_dict = {'Emotet': 1, 'Mirai': 2, 'Zeus': 3}
     predicted_ids = []
     
-    for i in predictions:
-        pred_name = le_classes[np.argmax(i)]
+    for idx in predictions:
+        pred_name = le_classes[idx]
         pred_id = malwares_dict[pred_name]
         predicted_ids.append(pred_id)
         
